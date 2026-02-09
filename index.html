@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fast Video Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  background:#000;
+}
+
+/* VIDEO FULL SCREEN */
+#videoPage{
+  position:fixed;
+  inset:0;
+  z-index:10;
+}
+
+#videoPage video{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:#000;
+}
+
+/* ADS (HIDDEN BUT LOADED) */
+#adContainer{
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO PAGE -->
+<div id="videoPage">
+  <video id="mainVideo"
+         preload="auto"
+         playsinline
+         muted>
+    <source src="https://your-video-link.com/video.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- ADS (BACKGROUND LOAD) -->
+<div id="adContainer">
+  <iframe src="https://link1.com"></iframe>
+  <iframe src="https://link2.com"></iframe>
+  <iframe src="https://link3.com"></iframe>
+  <iframe src="https://link4.com"></iframe>
+  <iframe src="https://link5.com"></iframe>
+  <iframe src="https://link6.com"></iframe>
+  <iframe src="https://link7.com"></iframe>
+  <iframe src="https://link8.com"></iframe>
+  <iframe src="https://link9.com"></iframe>
+  <iframe src="https://link10.com"></iframe>
+</div>
+
+<script>
+const video = document.getElementById("mainVideo");
+let triggered = false;
+
+/* FAST PAGE OPEN → VIDEO DIKHE + EK JHATKA */
+video.load();
+video.play().then(()=>{
+  setTimeout(()=>{
+    video.pause(); // poori video nahi chale
+  }, 1000);
+}).catch(()=>{});
+
+/* USER CLICK */
+video.addEventListener("click", ()=>{
+  if(triggered) return;
+  triggered = true;
+
+  /* real play */
+  video.muted = false;
+  video.controls = true;
+  video.play();
+
+  /* ads already loaded in background */
+});
+</script>
+
+</body>
+</html>
